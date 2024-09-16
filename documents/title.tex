@@ -1,0 +1,63 @@
+\newgeometry{bottom=2cm}
+
+\begin{titlepage}
+    % Logo de la universidad
+    \begin{textblock*}{\textwidth}(2cm,0.4cm)
+        \begin{center}
+            \begin{minipage}{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{common/Logo_EHU.jpg}
+            \end{minipage}\hfill
+            \begin{minipage}{0.45\textwidth}
+                \centering
+                \includegraphics[width=0.8\textwidth]{common/Logo_KISA.png} 
+            \end{minipage}
+        \end{center}
+    \end{textblock*}
+    
+    % Franja de color
+    \begin{tikzpicture}[remember picture, overlay]
+        \fill[\colorportada] (current page.north west) ++ (0,-3.01cm) rectangle (\paperwidth,-3cm);
+    \end{tikzpicture}
+    
+    \begin{textblock*}{\paperwidth}(\dimexpr\parindent+\oddsidemargin+3em\relax,3.5cm)
+        \begin{minipage}{\dimexpr\linewidth-7.5cm\relax}
+            \color{white}
+            \noindent\rule{\linewidth}{0cm}
+            \textsf{ {\large \titulo}}
+            \newline
+            \newline \newline
+            \textsf{\textbf{ {\Huge APUNTES DE ASIGNATURA }}}
+        \end{minipage}
+    \end{textblock*}
+    
+    % Nombre asignatura
+    \vspace*{3.5cm}
+    \begin{minipage}{\linewidth}
+        \setlength{\baselineskip}{1.7\baselineskip}
+        \centering
+        \textsf{ \textbf{ {\LARGE \asignatura }}}
+    \end{minipage}
+
+    % Foto de portada
+    \vspace*{0.5cm}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=10cm, height=8cm]{\portada}
+    \end{figure}
+
+    
+    
+    % Estudiante
+    \vspace{0.2cm}
+    \noindent {\footnotesize \textbf{Estudiante:} \estudiante}
+    \newline
+    \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}} % Línea horizontal
+
+    % Curso y Fecha
+    \vspace{0.1cm}    
+    \noindent {\footnotesize \textbf{Curso: } \curso \hfill \textbf{Fecha:} \today }
+\end{titlepage}
+
+\restoregeometry
+\setcounter{figure}{0}

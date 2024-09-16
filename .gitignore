@@ -1,0 +1,6 @@
+*__pycache__/
+log/*
+build/*
+documents/build/*
+install/*
+env/*
