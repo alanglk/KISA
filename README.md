@@ -2,7 +2,7 @@
 Repositorio de apuntes del master KISA
 
 La estructura del repositorio es la siguiente:
-```bash
+```
 .
 ├── documents
 │   ├── main.tex
