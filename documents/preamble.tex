@@ -7,6 +7,7 @@
 \usepackage[T1]{fontenc}                % Codificación de fuente (escribir castellano)
 \usepackage{lmodern}                    % Fuente (la default no es compatible con castellano)
 \usepackage{csquotes}                   % Para comillas y otras anotaciones del castellano
+\usepackage{enumitem}					% Mejora los enumerates
 \usepackage{fancyhdr}                   % Encabezado y Pie de pagina
 \usepackage{tocloft}                    % Puntos en los índices
 
@@ -51,6 +52,9 @@
 \definecolor{myexamplebg}{HTML}{F2FBF8}
 \definecolor{myexamplefr}{HTML}{88D6D1}
 \definecolor{myexampleti}{HTML}{2A7F7F}
+\definecolor{mynotebg}{HTML}{fff9e7}
+\definecolor{mynotefr}{HTML}{ffcd33}
+\definecolor{mynoteti}{HTML}{e6ad00}
 
 \definecolor{ehu_blue}{HTML}{376092}
 \definecolor{title_red}{HTML}{f34157}
@@ -176,6 +180,7 @@
 \makeatother
 
 % Ejemplo
+\makeatletter
 \newtcbtheorem[number within=section]{example}{Example}
 {%
 	colback = myexamplebg
@@ -190,10 +195,30 @@
 	,description font = \mdseries
 	,separator sign none
 	,description delimiters parenthesis
-}
-{ex}
+}{ex}
+\makeatother
+
+% Nota
+\makeatletter
+\newtcbtheorem[number within=section]{note}{Note}
+{%
+	colback = mynotebg
+	,breakable
+	,colframe = mynotefr
+	,coltitle = mynoteti
+	,boxrule = 1pt
+	,sharp corners
+	,detach title
+	,before upper=\tcbtitle\par\smallskip
+	,fonttitle = \bfseries
+	,description font = \mdseries
+	,separator sign none
+	,description delimiters parenthesis
+}{nt}
+\makeatother
 
 % Definicion
+\makeatletter
 \newtcbtheorem[number within=section]{definition}{Definition}{enhanced,
 	before skip=2mm,after skip=2mm, colback=red!5,colframe=red!80!black,boxrule=0.5mm,
 	attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
@@ -214,4 +239,4 @@
 		},
 	fonttitle=\bfseries,
 	title={#2},#1}{def}
-
+\makeatother
