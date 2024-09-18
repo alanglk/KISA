@@ -118,8 +118,70 @@ g + geom_point(aes(color=Europe), size=4, alpha=1/2)
 g + geom_point(aes(color=Europe), size=4, alpha=1/2) +
   labs(title="Informe: felicidad")+
   labs(x="Apoyo social", y="Valor Escalera")
+# Para algunas cosas resulta más fácil adecuar el conjunto de datos
+df$Pais <- ifelse(df$Europe, "Europeo", "No Europeo")
+g <- ggplot(df, aes(Social.support, Ladder.score))
+g + geom_point(aes(color=Pais), size=4, alpha=1/2) +
+labs(title="Informe: felicidad")+
+labs(x="Apoyo social", y="Valor Escalera")
+# Modificar el suavizado
+g + geom_point(aes(color=Pais), size=4, alpha=1/2) +
+geom_smooth(method="lm", size=2, linetype=2, se=FALSE, color="red")
+
+g + geom_point(aes(color=Pais), size=4, alpha=1/2) +
+facet_grid(. ~ Europe) +
+geom_smooth(method="lm", size=2, linetype=2, se=FALSE, aes(color=Pais))
+
+# Como depende la relacion no en funcion de Europeo/No europeo sino también en función
+# de la percepción de la corrupcion?
+# Ahora esta variable no es un factor sino que es continua.
+# Primero debemos de categorizarlo
+df$CorruptionCat <- cut(dat$Perceptions.of.corruption,
+breaks = quantile(seq(0, 1, by=0.25)))
+g <- ggplot(df, aes(Social.support, Ladder.score))
+g <- g + geom_point(alpha=1/2, color="blue") +
+facet_wrap(Europe ~ CorruptionCat, nrow=2, ncol=4)
+#-------------------------------------------------------------------------------
+# GUARDAR GRAFICOS
+# Una vez has generado el gráfico que quieres puedes guardarlo en un fichero para
+# que puedas incluirlo en otro documento. Por ejemplo, tenemos el último gráfico
+# creado en el objeto g. Lo guardaremos en formato pdf. Puedes utilizar de manera
+# similar las funciones jpeg() y png().
+pdf("MiGrafico.pdf")
+g
+dev.off()
+#-------------------------------------------------------------------------------
+
+#########################################################################
+#                            EJERCICIO 1                                #
+#########################################################################
+datos <- read.table("./data/EAD/TiemposActividades.csv", header = TRUE, sep = "\t")
+attach(datos) # Para acceder directamente a los datos del dataframe
+
+# GRAFICO 1
+# Los datos de TiempoLAB están en segundos. Hay que pasarlos a horas
+TiempoLABh <- TiempoLAB / 3600
+meanValue <- mean(TiempoLABh)
+hist(TiempoLABh, breaks = 40, col = "purple", xlab = "Dedicación Trabajo Profesional(h.)", ylab = "Frecuencias", ylim = c(0, 4000), main = NULL)
+abline(v = meanValue, lty = 2) # Agregar linea punteada en la media
+text(meanValue + 2.5 , 1000, labels = paste("Puntuación media", round(meanValue, digits = 3), collapse = " "))
 
 
+# GRAFICO 2 
+# Tiempo Profesion (h) en X y Tiempo Cuidados (h) en Y por Jornadas NORMALES y Jornadas DESCANSO
+par(mfrow=c(1,2))
+TiempoLABh <- TiempoLAB / 3600
+TiempoCUIDADOh <- TiempoCUIDADO / 3600
+# Identificamos las entradas de jornadas normales y de descanso
+jornadaNormal   <- (JORNADA == "Normal")
+jornadaDescanso <- (JORNADA == "DescansoNOTRAB") | (JORNADA == "DescansoSITRAB")
+colores <- ifelse(SEXO == "M", "red", "blue")
 
+summary(TiempoCUIDADOh)
 
+plot(TiempoLABh[jornadaNormal], TiempoCUIDADOh[jornadaNormal], xlab="Tiempo Profesión (h.)", ylab="Tiempo Cuidados (h.)",
+     col="black", bg=colores, main="Jornada NORMAL", pch = 22, ylim = c(0, 12))
+
+plot(Social.support[!europe], Ladder.score[!europe], xlab="Apoyo social", ylab="Escalera",
+     col=1, main="No Europa")
 
