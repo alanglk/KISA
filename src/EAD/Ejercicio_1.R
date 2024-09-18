@@ -184,3 +184,20 @@ plot(TiempoLABh[jornadaNormal], TiempoCUIDADOh[jornadaNormal], xlab="Tiempo Prof
 plot(TiempoLABh[jornadaDescanso], TiempoCUIDADOh[jornadaDescanso], xlab="Tiempo Profesión (h.)", ylab="Tiempo Cuidados (h.)",
      col="black", bg=colores, main="Jornada DESCANSO", pch = formas, ylim = c(0, 12))
 
+legend("topleft", c("Mujeres", "Hombres"), col = "black", fill = c("red", "blue"), cex=0.8)
+
+
+# GRAFICO 3
+datos <- read.table("./data/EAD/TiemposActividades.csv", header = TRUE, sep = "\t")
+attach(datos) # Para acceder directamente a los datos del dataframe
+library(ggplot2)
+
+TiempoLABh <- TiempoLAB / 3600
+TiempoCUIDADOh <- TiempoCUIDADO / 3600
+jornada <- ifelse(JORNADA == "Normal", "Normal", "DescansoNOTRAB")
+df <- data.frame( TiempoLABh = TiempoLABh, TiempoCUIDADOh = TiempoCUIDADOh, SEXO = SEXO, JORNADA=jornada)
+
+# Utilizamos ggplot2
+g <- ggplot(df, aes(x = TiempoLABh, y = TiempoCUIDADOh, color = SEXO)) # Grafico Jornada Normal
+g + geom_point() + facet_grid(. ~ JORNADA)+ scale_color_manual(values=c("#56B4E9", "#E69F00")) + xlab("Tiempo Profesión") + ylab("Tiempo Cuidados")
+
