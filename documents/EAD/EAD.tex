@@ -21,23 +21,27 @@
 % \listoftables\thispagestyle{empty}    %\newpage
 
 \section{Visualización de Datos y Estadísticos}
-se utiliza la notación nxp individuos por filas y atributos por columnas. Cuando nos refiramos al individuo siempre en forma de vector columna.
-
-% Ejemplo
-% Variables bianrias
-% X=_ 'Tiene una anomalía'
-% |0|
-% |1|
-% |0| media X = 1/5 = 0.2 -> nos devuelve la frecuencia del 1 (probabilidad de que ocurra 1)
-% |0|
-% |0|
-
+Se utiliza la notación nxp individuos por filas y atributos por columnas. Cuando nos refiramos al individuo siempre en forma de vector columna.
+\ex{Media en variables binarias}{
+    \[
+        X = \text{'Tiene una anomalía'}
+    \]
+    \[
+        X = 
+        \begin{pmatrix}
+            0 \\
+            1 \\
+            0 \\
+            0 \\
+            0
+        \end{pmatrix}
+        \quad \mean{X} = \frac{1}{5} = 0.2
+    \]
+    Nos devuelve la frecuencia del 1 (probabilidad de que ocurra 1)
+}
 
 Con una matriz de correlaciones solo podemos capturar o identificar relaciones lineales. Ejemplo de la correlación cuadrática.
-\qs{}{is the set}
-\sol{oooomagad}
-\dfn{dos por tres}{Es un producto}
-\ex{blabla}{gogo}
+
 
 
 \subsection{Exploración Gráfica con R}
@@ -47,5 +51,22 @@ Por otra parte, R tiene ya muchos colores predefinidos. Algunos ya los has utili
 
 
 pch values -> Valor para los plots que indican el icono del punto a plotear (0: 25)
+
+\qs{Obtén una serie de gráficos a partir de estos datos}{
+    {\tiny
+    
+    Entre los estudios que realiza periódicamente EUSTAT está el del uso del tiempo que hacemos. En este apartado trabajaremos con datos (TiempoActividad.csv) derivados de este tiempo. Las variables que tenemos son:
+    \begin{itemize}
+        \item SEXO
+        \item EDAD (categorizada)
+        \item HORARIO (0: Sin ocupación; 1: Jornada sin trabajo; 2: Trabajo sin horario; 3: Horario de mañana o normal; 4: Horario de tarde; 5: Horario de noche)
+        \item JORNADA (SinOcup: Sin ocupación; Normal: Día de trabajo normal; MediaJ: Día de media jornada laboral; DescansoNOTRAB: Día de descanso festivo no trabajado; DescansoSITRAB: Día de descanso o festivo trabajado; BajaEnf : Día de baja por enfermedad; Festivo: Día de vacaciones; Otros: Otros casos)
+        \item TiempoLAB (Duración de la actividad a un dígito <<Trabajo profesional y tiempo de formación>> (segundos))
+        \item TiempoCUIDADO (Duración de la actividad a un dígito <<Cuidados a las personas del hogar>> (segundos))
+        \item DIASEMANA (1: Lunes; — 7: Domingo)
+    \end{itemize}
+    }
+}
+
 
 \end{document}
