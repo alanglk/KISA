@@ -176,12 +176,11 @@ TiempoCUIDADOh <- TiempoCUIDADO / 3600
 jornadaNormal   <- (JORNADA == "Normal")
 jornadaDescanso <- (JORNADA == "DescansoNOTRAB") | (JORNADA == "DescansoSITRAB")
 colores <- ifelse(SEXO == "M", "red", "blue")
-
-summary(TiempoCUIDADOh)
+formas <- ifelse(SEXO == "M", 21, 22)
 
 plot(TiempoLABh[jornadaNormal], TiempoCUIDADOh[jornadaNormal], xlab="Tiempo Profesión (h.)", ylab="Tiempo Cuidados (h.)",
-     col="black", bg=colores, main="Jornada NORMAL", pch = 22, ylim = c(0, 12))
+     col="black", bg=colores, main="Jornada NORMAL", pch = formas, ylim = c(0, 12))
 
-plot(Social.support[!europe], Ladder.score[!europe], xlab="Apoyo social", ylab="Escalera",
-     col=1, main="No Europa")
+plot(TiempoLABh[jornadaDescanso], TiempoCUIDADOh[jornadaDescanso], xlab="Tiempo Profesión (h.)", ylab="Tiempo Cuidados (h.)",
+     col="black", bg=colores, main="Jornada DESCANSO", pch = formas, ylim = c(0, 12))
 
