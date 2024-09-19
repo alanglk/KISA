@@ -95,6 +95,51 @@ Si centramos dos veces tenemos la matriz de varianzas covarianzas
 
 Vectores propios y valores propios
 
+\subsection{Distancias, similaridades y kernels}
+Una distancia o similaridad se define como
 
+Además, se dice que una distancia es una métrica si se cumple
+
+En otras palabras que la distancia de un sitio a otro es la más corta (como en el plano es la recta)
+
+La matriz de similaridad se diferencia de la de la distancia en que la similaridad de uno consigo mismo es uno en lugar de 0 (como ocurre con la distancia)
+
+Tipos de distancias para variables cuantitativas:
+- Distancia euclídea
+- Distancias de Minkowsky (generalización de la distancia euclídea)
+- Distancia de Karl Pearson. Tengo dos personas que miden(m) y pesan(kg): w_1(1.65, 70) y w_2(1.75, 72) -> distancia euclidea -> 0.1² + 2². El problema es que la altura queda muy diluida respecto al peso. Por ello hay que hacer una estandarización. Es similar a la distancia de Mahalanobis solo que solo se utiliza la matriz diagonal de varianzas.
+- Distancia de Mahalanobis. Puede dar problemas si en un mismo conjunto de datos existen  distintas distribuciones o agrupaciones inconsistentes (una regresión y una agrupación por ejemplo).
+
+
+En el caso de variables binarias, lo más común es calcular similaridades en lugar de distancias (calcular las coincidencias en una tabla de contingencia).
+
+Tipos de similaridades:
+- Similaridad de (simétrica)
+- Similaridad de Jaccard (asimétrica)
+
+\ex{Similaridad binaria simétrica / asimétrica}{
+X_1 = 'Animal Adulto (1) / Cría (0)'
+X_2 = 'Tiene 4 patas (sí, no)'
+
+gallina -> (0, 0)
+serpiente -> (0, 0)
+De esta manera, la gallina y la serpiente se parece. Sin embargo, es más pertinente preguntarse si la pregunta de ¿Tiene 4 patas? es adecuada.
+el 0, 0 para las 4 patas no lo quiero contar, las no coincidencias no me interesan luego X_2 debe tratarse de forma asimétrica. Pero por otro lado X_1 sí que me aporta información relevante en las coincidencias de (0, 0) (ambos animales son crías y por lo tanto se parecen), luego es adecuado tratarla de forma simétrica.
+}
+
+\ex{¿Similaridades / distancias entre los objetos?}{
+Similaridad simétrica
+\[
+S_{3x3} = \begin{bmatrix}
+    1 & 4/6 & 1/6 \\
+    0 & 1 & 3/6 \\
+    0 & 0 & 1
+\end{bmatrix}
+\]
+Similaridad asimétrica
+}
+\nt{dist(method = "binary") en R}{
+    Esta distancia devuelve d_{ij} = 1 - S_{ij} donde S es el índice Jaccard.
+}
 
 \end{document}
