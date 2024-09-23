@@ -65,6 +65,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.10-venv \
     python3-pip \
     lsof \
+    libharfbuzz-dev \
+    libfribidi-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Step 4 - Install R
