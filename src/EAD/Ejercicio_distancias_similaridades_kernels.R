@@ -28,5 +28,18 @@ dist(dat, method ="minkowski")
 ########################### Ejercicio 2 #################################
 
 
+########################### Ejercicio 7 #################################
+# Vector de distancias entre vectores
+dists <- seq(0.1, 5, by = 0.05)
+
+KM2 <- function(d){ exp(-d) } # Kernel Matern 1/2
+KG <- function(d){ exp(-d ^2) } # Kernel Gausiano desv = 1/2
+KM3 <- function(d){ (1 + sqrt(3) * d) * exp(-sqrt(3) * d) } # Kernel Matern 3/2
+KM5 <- function(d){ (1 + sqrt(5) * d + sqrt(5) * d ^ 2 / 3) * exp(-sqrt(5) * d) } # Kernel Matern 5/2
+
+plot(dists, KM2(dists), type = "l", col = "lightsalmon")
+lines(dists, KG(dists), col = "orange")
+lines(dists, KM3(dists), col = "lightgreen")
+lines(dists, KM5(dists), col = "purple")
 
 
