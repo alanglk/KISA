@@ -31,6 +31,10 @@
         {
             "package": "plotly",
             "version":"4.10.2"
+        },
+        {
+            "package": "tidyverse",
+            "version":"2.0.0"
         }
     ]
 }
