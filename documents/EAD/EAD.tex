@@ -267,7 +267,7 @@ Tipos de distancias para variables cuantitativas:
 
 En el caso de variables binarias, lo más común es calcular similaridades en lugar de distancias (calcular las coincidencias en una tabla de contingencia).
 
-Tipos de similaridades:
+Tipos de similaridades variables binarias:
 - Similaridad de (simétrica)
 - Similaridad de Jaccard (asimétrica)
 
@@ -295,6 +295,20 @@ Similaridad asimétrica
 \nt{dist(method = "binary") en R}{
     Esta distancia devuelve d_{ij} = 1 - S_{ij} donde S es el índice Jaccard.
 }
+
+Tipos de similaridades variables mixtas (cuantitativas, binarias y nominales):
+- Similaridad de Gower
+
+\ex{Indice similaridad variables mixtas}{
+    (ejemplo apuntes)
+    primero se indentifica el rango en el que se mueven las variables cuantitativas
+    $s_27 = ...$
+}
+
+kernels
+Buscar transformaciones de espacios de dimensión pequeña a espacios de dimensión grande para buscar formas de separar linealmente datos.
+
+
 
 \subsection{Reducción dimensionalidad}
 \subsection{Clustering}
