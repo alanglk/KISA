@@ -34,10 +34,6 @@ out <- prcomp(X)
 landa <- out$sdev
 vari <- landa / sum(landa) * 100
 
-# Grafico scree
-x <- seq(1, length(vari))
-plot(x, vari, type = "b", col="darkorchid3")
-
 descomp_variabilidad <- data.frame(componente = x, landa = landa, variabilidad = vari)
 descomp_variabilidad$var_acum = cumsum(vari)
 
@@ -46,5 +42,24 @@ eigen(var(X)) # Lo mismo que rotation -> matriz de Us
 out$rotation # matriz de autovectores -> matriz de Us
 out$x # C -> matriz de componentes principales C = XU
 cor(X, out$x[, 1:2]) # Correlaciones de Pearson
-
 biplot(out)
+
+# c) ¿Hay alguna variable que no queda bien recogida con las dos primeras componentes?
+# Grafico scree
+x <- seq(1, length(vari))
+plot(x, vari, type = "b", col="darkorchid3")
+# Por los resultados del grafico scree y los valores de las correlaciones entre X1...Xp y C1...Cp, las variables quedan bien representadas con las dos primeras componentes 
+
+# d) Representar las ciudades según los valores de las dos primeras componentes
+plot(out$x[, 1:2], pch = 21, col = "black", bg = "black")
+text(x = out$x[, 1], y = out$x[, 2] + 0.5, row.names(out$x))
+
+# e) Representar las ciudades según los valores de las dos primeras componentes mostrando la region a la que pertenecen
+library(dplyr)
+X <- read.table("./data/EAD/temperat.csv", header = TRUE, sep = ";")
+df <- data.frame(out$x)
+df <- df %>% mutate(Region = X$Region)
+
+library(ggplot2)
+ggplot(df, aes(x = PC1, y = PC2, colour = Region)) +
+    geom_point(size = 3)
