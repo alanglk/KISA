@@ -31,27 +31,37 @@ X <- X[, !(names(X) %in% c("Moyenne", "Amplitude", "Latitude", "Longitude", "Reg
 
 # a) Obtener la descomposición de la variabilidad por componentes en términos de porcentaje.
 out <- prcomp(X)
-landa <- out$sdev
+landa <- out$sdev ^ 2
 vari <- landa / sum(landa) * 100
 
 descomp_variabilidad <- data.frame(componente = x, landa = landa, variabilidad = vari)
 descomp_variabilidad$var_acum = cumsum(vari)
 
+summary(out) # Lo mismo que lo anterior
+
+# Grafico scree
+x <- seq(1, length(vari))
+plot(x, vari, type = "b", col="darkorchid3")
+
 # b) Interpretar las dos primeras componentes.
 eigen(var(X)) # Lo mismo que rotation -> matriz de Us
 out$rotation # matriz de autovectores -> matriz de Us
 out$x # C -> matriz de componentes principales C = XU
-cor(X, out$x[, 1:2]) # Correlaciones de Pearson
+r = cor(X, out$x[, 1:2]) # Correlaciones de Pearson
+r
 biplot(out)
 
 # c) ¿Hay alguna variable que no queda bien recogida con las dos primeras componentes?
-# Grafico scree
-x <- seq(1, length(vari))
-plot(x, vari, type = "b", col="darkorchid3")
-# Por los resultados del grafico scree y los valores de las correlaciones entre X1...Xp y C1...Cp, las variables quedan bien representadas con las dos primeras componentes 
+# Cálculo de las comunalidades. Fijamos X1...Xp y calculamos de cuánto son representadas por C1...Cq
+# r²(Xj, C1) + ... + r²(Xj, Cq)
+r_2 = r ^2
+comunalidades = apply(X= r_2, MARGIN=1, FUN= sum)
+comunalidades
+apply(cor(X, out$x[, 1:2]), 1, function(x){sum(x^2)})
 
 # d) Representar las ciudades según los valores de las dos primeras componentes
-plot(out$x[, 1:2], pch = 21, col = "black", bg = "black")
+# Representar en un plot
+plot(out$x[, 1:2], pch = 21, col = "black", bg = "black", cex = )
 text(x = out$x[, 1], y = out$x[, 2] + 0.5, row.names(out$x))
 
 # e) Representar las ciudades según los valores de las dos primeras componentes mostrando la region a la que pertenecen
@@ -63,3 +73,31 @@ df <- df %>% mutate(Region = X$Region)
 library(ggplot2)
 ggplot(df, aes(x = PC1, y = PC2, colour = Region)) +
     geom_point(size = 3)
+
+
+########################### Ejercicio 5 #################################
+# install.packages("kernlab")
+library("kernlab")
+datos <- read.table("./data/EAD/spherical.csv", sep = " ", col.names = c("X", "Y", "Z"))
+#xc <- scale(datos, center = TRUE, scale = FALSE) # Centrado de los datos
+
+# a)  Realiza un ACP sobre las variables originales y repres´entalos en seg´un las dos
+#     primeras componentes principales. Utiliza un color para los 100 primeros casos y
+#     otro para los restantes.
+out <- prcomp(datos, scale = FALSE)
+summary(out)
+C <- out$x[, 1:2]
+n1 <- 100
+n <- dim(datos)[1]
+kol <- rep(1:2, each = c(n1, n - n1))
+plot(x = C[, 1], y = C[, 2], col = kol)
+
+# b)  Considera como funci´on kernel el RBF con σ = 0.2 y representa los objetos seg´un
+#     las dos primeras kernel-componentes principales. Comp´aralo con los resultados
+#     anteriores.
+X <- as.matrix(datos)
+s = 0.2
+out2 <- kpca(X, kernel = "rbfdot", kpar = list(sigma = s))
+plot(out2@rotated[, 1:2], col = kol)
+
+
