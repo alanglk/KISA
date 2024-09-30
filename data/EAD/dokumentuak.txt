@@ -1,0 +1,10 @@
+human interface computer user system reponse time EPS survey trees graph minors
+c1 1 1 1 0 0 0 0 0 0 0 0 0
+c2 0 0 1 1 1 1 1 0 1 0 0 0
+c3 0 1 0 1 1 0 0 1 0 0 0 0
+c4 1 0 0 0 2 0 0 1 0 0 0 0
+c5 0 0 0 1 0 1 1 0 0 0 0 0
+m1 0 0 0 0 0 0 0 0 0 1 0 0
+m2 0 0 0 0 0 0 0 0 0 1 1 0
+m3 0 0 0 0 0 0 0 0 0 1 1 1
+m4 0 0 0 0 0 0 0 0 1 0 1 1

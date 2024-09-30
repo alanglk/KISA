@@ -74,6 +74,33 @@ library(ggplot2)
 ggplot(df, aes(x = PC1, y = PC2, colour = Region)) +
     geom_point(size = 3)
 
+########################### Ejercicio 4 #################################
+# Se han considerado 9 documentos, de los cuales 5 (d1-d5) tratan de “interacci´on entre
+# persona y computador” y los otros 4 (d6-d9) tratan sobre “teor´ıa de grafos”. Consid-
+# eremos t´erminos las palabras que aparecen al menos en dos documentos distintos.
+datos <-read.table("./data/EAD/dokumentuak.txt", sep = " ", header = TRUE)
+# a) Calcula las 2 primeras componentes principales e interpretalas
+out <- prcomp(datos)
+summary(out) # Variabilidad
+out$rotation[, 1:2]
+
+# b) Representa los documentos segun los valores de las dos primeras componentes
+plot(out$x[, 1:2])
+text(out$x[, 1:2], row.names(out$rotation ))
+
+# c) Supongamos que tenemos un nuevo documento d0 “Graph theory with applications 
+#    to engineering and computer science”. Proy´ectalo en el plano construido por
+#    las 2 primeras componentes. ¿D´onde se clasificar´ıa este documento, en el ´ambito
+#    “interacci´on entre persona y computador” o en “teor´ıa de grafos”?
+d0 <- c("graph", "theory", "with", "applications", "to", "engineering", "and", "computer", "science")
+d0 <- matrix(c(0 ,0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0), ncol  = 1)
+
+# Hay que centrar los datos primero
+m <- apply(datos, 2, mean)
+d0_rot <- t(d0 - m) %*% out$rotation[, 1:2] 
+
+points(d0_rot, col = "red")
+
 
 ########################### Ejercicio 5 #################################
 # install.packages("kernlab")
