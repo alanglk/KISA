@@ -22,8 +22,6 @@ plot(x.mds1$eig, type="b" ) # ¿Cuáles son los valores propios más importantes
 plot(x.mds1$points, main = "Distancia sqrt(1 - Jaccard)")
 x.mds1$GOF # Goodness Of Fit -> % variabilidad
 
-
-
 # b) Obtén una representación euclídea de estas herramientas e interpreta los resultados.
 dists2 <- dist(incidences, method = "euclidean")
 x.mds2 <- cmdscale(dists2)
@@ -35,3 +33,24 @@ plot(x.mds2, main = "Distancia Euclidea")
 dists3 <- dist(incidences, method = "binary")
 x.mds3 <- cmdscale(dists3, eig = TRUE)
 plot(x.mds3$points, main = "Distancia (1 - Jaccard)")
+
+
+########################### Ejercicio 3 #################################
+# Se han considerado 28 tipos de sustancias y se ha preguntado a 68 personas acerca del
+# consumo que hacen y se ha construido una matriz de similaridades con las frecuencias
+# del consumo simultáneo dos a dos de estas sustancias. La matriz de similaridades se
+# ha recogido en el fichero substances.dat.
+similaridades <-read.table("./data/EAD/substances.dat", header = TRUE)
+row.names(similaridades) <- colnames(similaridades)
+
+# Estudia como se podrían representar los consumos de estas sustancias en una 
+# configuraci´on eucl´ıdea.
+dists <- 1 - similaridades / 68 # Pasar de similaridad a distancias
+x.mds <- cmdscale(dists, eig = TRUE) # Realizamos ACP
+
+plot(x.mds$eig, type="b")
+abline(h = 0, col = "blue")
+# Los  autovalores más significativos son positivos -> Se puede considerar una
+# configuración euclídea descartando los autovectores menos significativos
+
+
