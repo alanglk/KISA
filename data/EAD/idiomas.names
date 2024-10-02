@@ -1,0 +1,6 @@
+Se han considerado 14 idiomas europeos y se han medido las diferencias  que presentan en relacion a las letras que describen los numeros 1 a 10. La dismilaridad entre cada par de idiomas se calcula sumando el numero de letras que cambian (por supresion, duplicacion, añadido, etc.) al escribir cada uno de los numeros 1, 2, ..., 10.
+
+El fichero idiomas.dat contiene las distancias (triangular) entre los idiomas en el siguiente orden:
+Aleman, Ingles, Euskara, Catalan, Castellano, Danes, Finlandes, Frances, Gallego, Holandes, Hungaro, Italiano, Noruego, Polaco.
+
+Fuente: C. M. Cuadras (2012) Nuevos Metodos de Analisis Multivariante. CMC Editions, Barcelona.
