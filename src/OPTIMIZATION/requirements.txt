@@ -1,0 +1,15 @@
+ipykernel
+setuptools
+numpy
+pandas
+matplotlib
+pillow
+opencv-python
+pulp
+pyomo
+ipython
+pymdptoolbox
+scikit-learn
+GPy
+GPyOpt
+networkx
