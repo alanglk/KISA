@@ -25,8 +25,10 @@ La estructura del repositorio es la siguiente:
 │   ├── OPT -> "Optimization Techniques"
 |   |   ├── class_notebooks
 |   |   └── Assignment_1
-│   └── AAA -> "Aprendizaje Automático Avanzado"
-|       └── practica_1
+│   ├── AAA -> "Aprendizaje Automático Avanzado"
+|   |   └── practica_1
+│   └── IDL -> "Introducción al Deep Learning"
+|       └── class_notebooks
 ├── .gitignore
 └── README.md
 ```
