@@ -15,12 +15,27 @@ La estructura del repositorio es la siguiente:
 │   └── asignatura_2
 |       ├── images
 |       └── asignatura_2.tex
+├── data
+│   ├── EAD
+|   |   ├── data_file1.txt
+|   |   └── temperat.csv
 ├── src
-│   ├── asignatura_1
-|   |   ├── practica_1
-|   |   └── practica_2
-│   └── asignatura_2
-|       └── practica_1
+│   ├── EAD -> "Exploración y Análisis de Datos"
+|   |   └── Ejercicios sobre temas
+│   ├── OPT -> "Optimization Techniques"
+|   |   ├── class_notebooks
+|   |   └── Assignment_1
+│   ├── AAA -> "Aprendizaje Automático Avanzado"
+|   |   └── practica_1
+│   └── IDL -> "Introducción al Deep Learning"
+|       └── class_notebooks
 ├── .gitignore
 └── README.md
 ```
+
+
+
+
+## Repositorios Asociados
+
+
