@@ -4,4 +4,5 @@ build/*
 documents/build/*
 install/*
 env/*
+.venv/*
 .Rproj.user

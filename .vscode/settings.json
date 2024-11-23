@@ -1,7 +1,7 @@
 {
     
-    "python.defaultInterpreterPath": ".venv/bin/activate",
-    "python.analysis.extraPaths": [".venv/bin/activate"],
+    "python.defaultInterpreterPath": ".venv/bin/python3",
+    "python.analysis.extraPaths": [".venv/bin/python3"],
     "python.terminal.activateEnvInCurrentTerminal": true,
     
     "r.alwaysUseActiveTerminal": true,
