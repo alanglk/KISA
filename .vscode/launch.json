@@ -45,6 +45,13 @@
             "request": "attach",
             "name": "Attach to R process",
             "splitOverwrittenOutput": true
+        },
+        {
+            "name": "Python (Integrated Terminal)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/test-project/hello.py",
+            "console": "integratedTerminal"
         }
     ]
 }
