@@ -4,21 +4,28 @@ Repositorio de apuntes del master KISA
 La estructura del repositorio es la siguiente:
 ```
 .
+├── docker
+|   └── docker_stuff... 
 ├── documents
 │   ├── main.tex
 │   ├── title.tex
 │   ├── common
 |   |   └── icons...
-│   ├── asignatura_1
+│   ├── EAD
 |   |   ├── images
-|   |   └── asignatura_1.tex
-│   └── asignatura_2
-|       ├── images
-|       └── asignatura_2.tex
+|   |   └── EAD.tex
+│   ├── MTI
+|   |   ├── PaulDirac.pdf
+|   |   ├── PaulDirac.tex
+|   |   └── MTI.tex
+│   └── OPT
+|       └── Assignment1.pdf
 ├── data
 │   ├── EAD
 |   |   ├── data_file1.txt
 |   |   └── temperat.csv
+|   └── AAA 
+|       └── wine.data
 ├── src
 │   ├── EAD -> "Exploración y Análisis de Datos"
 |   |   └── Ejercicios sobre temas
@@ -33,9 +40,12 @@ La estructura del repositorio es la siguiente:
 └── README.md
 ```
 
+## Exploración y Análisis de Datos (EAD)
 
+## Metodologías y Técnicas de Investigación (MTI)
 
+## Optimization Techniques (OPT)
 
-## Repositorios Asociados
+## Aprendizaje Automático Avanzado (AAA)
 
-
+## Introducción al Deep Learning (IDL)
