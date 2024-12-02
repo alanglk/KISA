@@ -49,3 +49,5 @@ La estructura del repositorio es la siguiente:
 ## Aprendizaje Automático Avanzado (AAA)
 
 ## Introducción al Deep Learning (IDL)
+
+## Introduction to Time Series Data Analisis (ITSDA)

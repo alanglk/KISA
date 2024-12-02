@@ -1,0 +1,20 @@
+services:
+  rstudio:
+    image: rocker/rstudio
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=video,compute,utility
+      - DISPLAY=${DISPLAY} # Para las interfaces graficas
+      - PASSWORD=1234
+      - DISABLE_AUTH=true
+      - USERID=1000 
+      - GROUPID=1000
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix         # Para las interfaces graficas -> Ejecutar xhost +
+      - /etc/machine-id:/etc/machine-id       # Ejecutar dbus-uuidgen --ensure=/etc/machine-id en host
+      - ../:/home/rstudio/KISA                # Creamos un bind-mount de la carpeta actual
+      - ../.rstudio_config:/home/rstudio/.config/rstudio
+    tty: true 
+    stdin_open: true
+    ports:
+      - 8787:8787
+    user: "${UID}:${GID}"
