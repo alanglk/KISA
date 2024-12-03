@@ -1,0 +1,46 @@
+# python -m venv venv
+# venv\Scripts\activate
+
+# pip3 install -U -r <path>\librerias.txt
+# pip3 list
+
+ipykernel
+
+imageio
+ipython
+
+#jupyter
+#jupyterlab
+
+librosa
+#libfmp
+
+matplotlib
+more-itertools
+
+numpy
+
+opencv-python
+
+pandas
+pathlib
+Pillow
+plotly
+pydub
+PyWavelets
+
+requests
+
+scikit-image
+scikit-learn
+scipy
+soundfile
+sleepecg
+
+tqdm
+neurokit2
+sleepecg
+
+urllib3
+
+wfdb
