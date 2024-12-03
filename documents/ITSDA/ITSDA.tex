@@ -26,6 +26,51 @@ There are multiple aproximation for using a time series data for different tasks
 - Use the data directly or with a preprocessing step for noise and dimensionality reduction, split into windows of data, selecting specific parameter for represanting the time series data or other more sophisticated techniques like fourier methods.
 - Use algorithms for specific data (convolutional networks for images, RNN for audio...).
 
+\section{Time Series Forecasting}
+The objective is to predict or to infer a future timestamp state for the time series.
+
+$$
+y_{t + a} = f(y_t, y_{t-1}, y_{t-2}, y_{t-3}, \dots, \text{error})
+$$
+
+Where $(y_{t}, y_{t}, y_{t})$ are the previous observations of the variables we want to predict (historical values). 
+Also, it is possible to have other extra information ($(x_{1}, x_{2}, x_{3})$) that is useful for the forecasting:
+
+$$
+y_{t + a} = f(y_t, y_{t-1}, y_{t-2}, y_{t-3}, \dots, x_{1}, x_{2}, x_{3}, \dots, \text{error})
+$$
+
+\subsection{Classical lineal models}
+The Classical lineal models has these assumptions:
+
+\begin{itemize}
+    \item \textbf{stochastic process}: an ordered sequence of random variables, where the
+    order is typically given by time: $(Y_1, Y_2, Y_3, \dots, Y_n, \dots)$.
+    \item \textbf{Time series}: a finite set of observations (a sample) from a real-valued
+    stochastic process (univariate or multivariate).
+\end{itemize}
+
+We need a time series to be stationary in order to apply forecasting methods. A time series is stationary if these conditions are fulfilled:
+$$
+F(X_1, X_2, X_3, \dots, X_n) = P(X_1 < x_1, X_2 < x_2, X_3 < x_3, \dots, X_n < x_n)
+$$
+\begin{enumerate}
+    \item First order stationary: $F(X_t) = F(X_{t +k})$. If the probability distribution of the first variable is the same as the second one, the same as the third one and so on.
+    \item Second order stationary: $F(X_{t1}, X_{t2}) = F(X_{t1 + k}, X_{t2 + k})$.
+\end{enumerate}
+
+However, it is very difficult to have a full stationary time series, so a \textit{weak stationary} is defined:
+\begin{enumerate}
+    \item The mean is constant.
+    \item The variance is constatnt.
+    \item The covariance si constant in terms of a parameter ($\text{Cov}(X_i, X_{i+k})=f(k)$). It depends on time difference between the random variables.
+\end{enumerate}
+
+\textbf{How do we check if a time series is stationary?}
+\begin{enumerate}
+    \item Visual inspection
+    \item Statistical tests
+\end{enumerate}
 
 
 \end{document}
