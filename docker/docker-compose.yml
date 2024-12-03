@@ -17,4 +17,4 @@ services:
     stdin_open: true
     ports:
       - 8787:8787
-    user: "${UID}:${GID}"
+    # user: "1000:1000"
