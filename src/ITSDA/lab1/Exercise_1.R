@@ -61,30 +61,19 @@ legend("topright", legend = c("Original", "Reconstructed (10 Coefficients)"), co
 #                     EXERCISE 3                     #
 ######################################################
 # Apply SAX with default parameters
-sax_result_default <- repr_sax(souvenir_ts, alphabet_size = 5, segments = 12)
-print(sax_result_default)
+souvenir_ts_znorm <- (souvenir_ts - mean(souvenir_ts)) / sd(souvenir_ts)
 
-# Experiment with different alphabet sizes and segments
-sax_result_3 <- repr_sax(souvenir_ts, alphabet_size = 3, segments = 12)
-sax_result_10 <- repr_sax(souvenir_ts, alphabet_size = 10, segments = 12)
+segments_0 <- 2  # `q` value for souvenir_sax_0
+segments_1 <- 5  # `q` value for souvenir_sax_1
+segments_2 <- 2  # `q` value for souvenir_sax_2
+
+# Compute SAX representations
+souvenir_sax_0 <- repr_sax(souvenir_ts_znorm, a = 6, q = 2, eps = 0.01)
+souvenir_sax_1 <- repr_sax(souvenir_ts_znorm, a = 3, q = 5)
+souvenir_sax_2 <- repr_sax(souvenir_ts_znorm, a = 10, q = 2)
 
 # Print SAX representations
-cat("SAX with Alphabet Size 3:\n", sax_result_3, "\n")
-cat("SAX with Alphabet Size 10:\n", sax_result_10, "\n")
-
-# Visualize Original Series vs. Discretized Representation
-plot(souvenir_ts, col = "blue", lwd = 2, main = "SAX Representation (Segments = 12)", ylab = "Sales")
-legend("topright", legend = c("Original Time Series"), col = "blue", lwd = 2)
-
-# Highlight how the SAX representation maps back to original series segments
-# Overlay SAX means for each segment
-segments <- 12
-paa_means <- repr_paa(souvenir_ts, segments = segments)
-segment_boundaries <- seq(1, length(souvenir_ts), length.out = segments + 1)
-for (i in 1:segments) {
-  rect(segment_boundaries[i], min(souvenir_ts), segment_boundaries[i + 1], max(souvenir_ts), 
-       border = NA, col = rgb(0.5, 0.5, 0.5, 0.2))
-  abline(h = paa_means[i], col = "red", lwd = 2)
-}
-
+cat("SAX with Alphabet Size 6,  q = 2:\n", souvenir_sax_0, "\n")
+cat("SAX with Alphabet Size 3,  q = 5:\n", souvenir_sax_1, "\n")
+cat("SAX with Alphabet Size 10, q = 2:\n", souvenir_sax_2, "\n")
 
