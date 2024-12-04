@@ -49,7 +49,7 @@ print(souvenir_ts)
 plot.ts(souvenir_ts)
 
 # Apply DFT to souvenirtimeseries
-dft_ts <- repr_dft(souvenir_ts, coef = 20)
+dft_ts <- repr_dft(souvenir_ts, coef = 84)
 print(dft_ts)
 
 plot(souvenir_ts, col = "blue", lwd = 2, main = "Original vs Reconstructed Time Series", ylab = "Sales")
