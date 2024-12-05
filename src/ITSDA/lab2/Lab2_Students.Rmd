@@ -282,6 +282,19 @@ lines(diff3_catalonia, col=3)
 ```
 
 * Estimate the seasonal component by using the seasonal means. What can we conclude? 
+```{r}
+catalonia_znorm <- (catalonia - mean(catalonia)) / sd(catalonia)
+catalonia_znorm = ts(catalonia_znorm, start= 1980,  frequency=4)
+seasonalmeans <- tapply(catalonia_znorm, cycle(catalonia_znorm), mean)
+standarizedst <- seasonalmeans - mean(seasonalmeans)
+
+seasonalcomponent <- ts(rep(standarizedst , length.out=length(catalonia_znorm)), start=start(catalonia_znorm)[1], frequency=4)
+residuals <- catalonia_znorm - seasonalcomponent
+par(mfrow=c(2,1), mar=c(2,2,2,2))
+plot(catalonia_znorm, type="l", ylab="", main="Estimating seasonality")
+lines(seasonalcomponent, col=2)
+plot(residuals, main="Residuals")
+```
 
 * When we eliminate the trend and seasonality (if it exists), do we obtain a stationary time series? 
 * Eliminate the trend from the original series by applying differentiation. How many time have you applied the operator?

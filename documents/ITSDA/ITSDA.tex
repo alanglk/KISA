@@ -61,8 +61,8 @@ $$
 
 However, it is very difficult to have a full stationary time series, so a \textit{weak stationary} is defined:
 \begin{enumerate}
-    \item The mean is constant.
-    \item The variance is constatnt.
+    \item The mean is constant. $E(X_t)$
+    \item The variance is constatnt. $\text{Var}(X_t)$
     \item The covariance si constant in terms of a parameter ($\text{Cov}(X_i, X_{i+k})=f(k)$). It depends on time difference between the random variables.
 \end{enumerate}
 
@@ -72,5 +72,21 @@ However, it is very difficult to have a full stationary time series, so a \texti
     \item Statistical tests
 \end{enumerate}
 
+\textbf{Forecasting models for stationary time series:}
+\begin{itemize}
+    \item Autoregresive Models AR($p$): \textit{predict the future based on previous observations.} $X_t = f(X_{t-1}, \dots, X_{t_-p}) + \epsilon_t$
+    \item Moving Average Models MA($q$): \textit{predict the future based on previous errors.} $X_t = f(\epsilon_{t-1}, \dots, \epsilon_{t_-q}) + \epsilon_t$
+    \item ARMA Models: \textit{linear regression of previous observations and previous errors}.
+\end{itemize}
+AR, MA and ARMA processes will only fit if the original time series is stationary. There is a variation named ARIMA Models wich tries to fit an ARMA model but performing differenciation on the time series previously in order to make a non-stationary time series stationary. It has 3 parameters: $p$, from the AR part; $d$, from the differenciation part and $q$, from the MA part. There are also other extensions and variants such as ARIMAX... \textit{Auto-ARIMA} is an implementation of the ARIMA algorithm with some heuristics to search for the optimal hiperparámeters of the ARIMA model.
+
+\textbf{Evaluation of a time series model:}
+
+Evaluate if the residuals are white noise or not. Evaluate the prediction power of the model with metrics such as:
+$$
+RMSE = \sqrt{\frac{\sum_{t=1}^{N}(x_t - \hat{x}_t)^2}{N}}
+$$
+
+For cross validation see \href{https://topepo.github.io/caret/data-splitting.html}{Data splitting for Time Series}.
 
 \end{document}
