@@ -89,4 +89,18 @@ $$
 
 For cross validation see \href{https://topepo.github.io/caret/data-splitting.html}{Data splitting for Time Series}.
 
+
+\section{Distances for Time Series}
+There are two mainly aproximations for measuring the distance or similarity between two time series: fixed and flexible distances.
+
+\textbf{Euclidean distance:} It is very simple to use and it hsa a low computational cost. However, it can only be used to compare series of the same lenght, the temporal correlation is not taken into account and it is very susceptible to noise.
+
+\textbf{Dynamic Time Warping:} It takes the temporality into account and can be used to compare series of different lenghts.However, it is not a metric (does not fullfil triangle inequality) and it has a high computational cost: 
+$$
+    O(m*n) \text{ where } m,n =\text{lenghts of the time series}
+$$ 
+
+\textbf{Edit Distances:} One approach may be to calculate a binary distances matrix between the $m$ and $n$ time series using $d(x_i, y_i) < \epsilon$ for then applying the \textit{Dynamic Time Warping} algorithm. This method has some advantajes compared with the \textit{Dynamic Time Warping} such as it may be more robust to noise spikes.
+
+
 \end{document}
