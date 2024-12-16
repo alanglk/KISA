@@ -103,4 +103,28 @@ $$
 \textbf{Edit Distances:} One approach may be to calculate a binary distances matrix between the $m$ and $n$ time series using $d(x_i, y_i) < \epsilon$ for then applying the \textit{Dynamic Time Warping} algorithm. This method has some advantajes compared with the \textit{Dynamic Time Warping} such as it may be more robust to noise spikes.
 
 
+\section{Time Series Classification}
+
+\subsection{Feature based classification}
+Represent the timeseries using a set of features. The representation doesn't depend on the number of training series and it is interpretable. However, there are some challenges such as what features do we have to select.
+
+\subsection{Model based classification}
+Train a distinct model for each class and when a new instance comes select the class of the model that gives the lowest error. It works well with models that fits the data, but it is very difficult to achieve this.
+
+\subsection{Distance based classification}
+These are currently the most popular methods for time series classification. 
+
+\subsubsection{K-NN}
+The most direct, simple and that achives good results stablishing a baseline for time series classification is $\text{K-NN} + \text{DTW}$ (usually with $K=1$). However, it is computational expensive and it is difficult to choose a distance method.
+
+\subsubsection{Distance features}
+\textbf{Distance based global classification} is a technique where any standar classifier is trained with the distances between all the training time series and new instances are classified using it's distances to all the training data.
+
+\textbf{Distance based local features} are based on \textit{shapelets}, or small parts of the time series that has some identifying patterns used too differenciate between the classes. Once the \textit{shapelets} have been identified, any classical classifier can be trained with the distance matrix between the time series to the \textit{shapelets}. This method is very very very computational expensive. However, if \textit{shapelets} are relevant, this methods gives very good interpretable results.
+
+\textbf{Embeded features} ...
+
+\subsubsection{Distance Kernels}
+The objective is to include kernel similarities in \textit{DTW} methods in order to apply algorithms shuch as \textit{SVMs} or \textit{GPs}. However, as DTW is not a metric, there are two main aproximations for this problem: to use specific matematical kernels or to tune the distances matrix in order to fullfil the metric conditions (semi-positive defined matrix).
+
 \end{document}
