@@ -1,0 +1,17 @@
+KISA Computer Vision Week 1
+Group:
+- Alan García
+
+
+Assignment 1 Alan Garcia:
+https://colab.research.google.com/drive/1dg5s6zhfxgy7pNhw0nfT4Gbv56W_Fdpf?usp=sharing
+
+Assignment 2 Alan Garcia:
+https://colab.research.google.com/drive/1N_jF_hQYyKTHPGEin-O5gVpU1EcZWZx5?usp=sharing
+
+Assignment 3 Alan Garcia:
+https://colab.research.google.com/drive/1bF6X6LOcBE-WK2BjWeYpOV6cN_30TQKG?usp=sharing
+
+Assignment 4 Alan Garcia:
+https://colab.research.google.com/drive/1KCmqT2ei_d2biq_xJbmPRQjtUB-2yepB?usp=sharing
+
