@@ -1,12 +1,13 @@
+
 {
-    
-    "python.defaultInterpreterPath": ".venv/bin/python3",
-    "python.analysis.extraPaths": [".venv/bin/python3"],
+    "python.analysis.extraPaths": [".venv/bin/activate"],
     "python.terminal.activateEnvInCurrentTerminal": true,
-    
-    "r.alwaysUseActiveTerminal": true,
-    "r.bracketedPaste": true,
-    "r.sessionWatcher": true,
-    "r.plot.useHttpgd": true,
-    "r.lsp.diagnostics": false
+    "python.defaultInterpreterPath": "./.venv/bin/python3",
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+    ]
 }
