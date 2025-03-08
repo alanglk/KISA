@@ -1,4 +1,4 @@
-KISA Computer Vision Week 2
+KISA Computer Vision Week 3
 Group:
 - Alan García Justel
 - Julen Rodrígez
@@ -7,6 +7,6 @@ Assignment 9:
 https://colab.research.google.com/drive/1SlF7x0JsD5IBqKkcAy4bd4yD4T7P0Fnl?usp=sharing
 
 Assignment 10 and 11:
-
+https://github.com/alanglk/KISA/blob/17c4619c97ba5572aa02c53f71554321f3f1d968/src/CV/assignment_10_and_11_julen_rodriguez_alan_garcia.pdf
 
 
