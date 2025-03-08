@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>KISA Computer Vision Assignment 10</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="kisa-computer-vision-assignment-10">KISA Computer Vision Assignment 10</h1>
+<h2 id="authors">Authors</h2>
+<p><strong>Author 1 (name and surname):</strong> Alan García Justel</p>
+<p><strong>Author 1 (name and surname):</strong> Julen Rodríguez</p>
+<h2 id="virtual-labelling">Virtual labelling</h2>
+<p><a href="https://colab.research.google.com/drive/15BLlhxweXbDWCa0uIZDo5oGfuDlU19Do?usp=sharing">Link to the Notebook</a></p>
+<p><strong>Looking at the images, why do you think it is possible to predict cell nuclei from their membrane labeling? Think about what requirements may be needed for this task or when it is not possible to learn such prediction.</strong></p>
+<p><em>Because it seems that nuclei's positions in the membrane-labeled image are darker spots than the membrane, this suggests that the nuclei create gaps or lower-intensity regions in the membrane signal.</em></p>
+<p><strong>Train a generative model to predict cell nuclei labeling from their membrane labeling in fluorescence microscopy images of Drosophila Melanogaster embryos. (This part is performed following the guidelines below).</strong></p>
+<p><em>The training was made taking a pretrained checkpoint and then fine-tuning it with the membrane labeling data for 10 epochs</em></p>
+<p><strong>Interpret the different accuracy metrics compiled along the notebook. For this, here are some questions to discuss within your team.</strong></p>
+<ul>
+<li>
+<p><strong>What is the difference between SSIM, MSE, and LPIPS?</strong></p>
+<p><em>SSIM, MSE, and LPIPS are three different metrics used to evaluate image similarity but with distinct approaches. MSE (Mean Squared Error) measures the average squared pixel-wise difference between corresponding pixels from source and target images, making it easy to compute but it isn't well-aligned with human perception. SSIM (Structural Similarity Index) improves upon MSE by considering structural information, luminance, and contrast, making it more perceptually relevant. However, it may still struggle with slight texture variations. LPIPS (Learned Perceptual Image Patch Similarity) is a deep learning-based metric that captures perceptual differences in images, making it the most human-aligned among the three. While MSE is useful for straightforward numerical comparison, SSIM and LPIPS provide more insightful assessments of image quality, especially when human perception matters.</em></p>
+</li>
+<li>
+<p><strong>Are hallucinations an important issue in this case?</strong></p>
+<p><em>Hallucinations refer to the generation of false or misleading details in AI-generated content. In this case, they are a significant issue, as the model may produce fake nuclei, leading to incorrect data for further analysis. Therefore, minimizing hallucinations is a crucial factor when developing these types of models.</em></p>
+</li>
+<li>
+<p><strong>Are the previous metrics capable of identifying hallucinations?</strong></p>
+<p><em>SSIM and MSE might fail to detect such hallucinations properly, as they focus on pixel-wise and structural differences rather than perceptual realism. LPIPS, being based on deep network features, could be more sensitive to hallucinated textures but might still struggle if the hallucinations are perceptually plausible. In this case, the LPIPS map between the target and predicted images makes it easy to identify areas where the model generates hallucinations, which are not as clearly detected with SSIM.</em></p>
+</li>
+</ul>
+<p><strong>What would you take into consideration to determine whether this is a good or a bad method?</strong></p>
+<p><em>When evaluating a method for generating nucleus images from membrane images, several factors must be considered. The generated images should be visually realistic and accurately represent nuclei's structure, assessed through metrics like LPIPS, SSIM, and expert review. The method must preserve key biological features, such as shape, size, and boundaries, and align with ground truth annotations for reliable segmentation. It should also handle variations in membrane images (e.g., noise or lighting) and be computationally efficient for large datasets or real-time use.</em></p>
+<ul>
+<li><strong>What actions would you propose to improve the results?</strong>
+<em>We suggest actions like data augmentation with changes in size, orientation, contrast, and adding noise to make the model more robust. Including domain knowledge can help improve biological accuracy, and using post-processing methods can refine the results. Modifying loss functions to include perceptual loss will help the model focus on important features. Cross-validation and real-world annotations will ensure the model is reliable, and hybrid models can improve the accuracy of nucleus shape and boundaries. These strategies should improve the quality, accuracy, and generalizability of the generated nucleus images.</em></li>
+</ul>
+<h2 id="zero-shot-nuclei-segmentation-using-dinosim">Zero-shot nuclei segmentation using DinoSIM</h2>
+<p><strong>In this exercise you will try to segment the same image using different resolutions. When does the network perform better at segmenting cell nuclei? Why do you think the results are different?</strong></p>
+<div style="display: flex; justify-content: space-around;">
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/1/early.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/1/early_x4.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/1/late.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/1/late_x4.png" width="200" />
+</div>
+<p><em>The network gives better results with the high resolution images. Here, each cell nucleus is represented by more pixels, allowing the model to capture more details and features. These additional pixel information provides a clearer and more discriminative representation of each nucleus, resulting in segmentation masks that closely follow the true boundaries. In contrast, low resolution images tend to blur these features. It causes the model to mix adjacent nuclei and produce less precise results.</em></p>
+<p><strong>Assess how the results of DinoSIM change with different number of prompts (1, 2, 3, … points). Do the results improve when you increase the number of points? Does it converge?</strong></p>
+<div style="display: flex; justify-content: space-around;">
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/2/early_3.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/2/early_6.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/2/early_x4_3.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/2/early_x4_6.png" width="200" />
+</div>
+<p><em>Having only one single prompt can lead the model to underfit or overfit the segmentations. It must be a really good prompt that fully capture the variation in intensity or shape in order to have good results. Adding more prompts generally returns more complete and precise segmentation masks, especially if each new prompt highlights a part of the nucleus that was previously underrepresented.</em>
+<em>Adding prompts does tend to converge. If there are multiple prompts that cover all the possible features the nuclei may have, further prompts will not change the segmentation results.</em></p>
+<p><strong>Try different results of DinoSIM with one single prompt by changing its location. Why do you think it sometimes performs better than others?</strong></p>
+<div style="display: flex; justify-content: space-around;">
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/3/early_1.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/3/early_2.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/3/early_3.png" width="200" />
+</div>
+<div style="display: flex; justify-content: space-around;">
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/3/early_x4_1.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/3/early_x4_2.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/3/early_x4_3.png" width="200" />
+</div>
+<p><em>As explained before, when a single prompt is used, the model extracts the features from that specific prompt and searches for similar patterns. If the prompt capture good information of the nuclei, then the segmentation will often generalize well. Each prompt acts like a template. It is important to place the prompts in informative spaces and not in noisy and unusable areas.</em></p>
+<p><strong>You will segment a virtually generated image using the reference vectors calculated from prompts in the original image. What are the main differences you see? Why do you think it may happen? Do you think you could use the results in the original and in the fake image to evaluate the quality of the virtual staining?</strong></p>
+<div style="display: flex; justify-content: space-around;">
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/4/early.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/4/early_x4.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/4/early_fake.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/4/early_fake_x4.png" width="200" />
+</div>
+<div style="display: flex; justify-content: space-around;">
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/4/late.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/4/late_x4.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/4/late_fake.png" width="200" />
+  <img src="file:////home/ag6154lk/KISA/src/CV/assignment_10_images/4/late_fake_x4.png" width="200" />
+</div>
+<p><em>Applying the same reference vectors in both image types return different segmentation. In some cases, the virtual images show clearer contrast, resulting in segmentation that looks more defined and consistent. In other cases, the model may fail to capture certain nuclei because this virtual images may introduce different intensity patterns that differ significantly from the original images.</em>
+<em>This happens because the model relies on patch-based feature similarity from the original images prompts. Accurate segmentation happen when the virtual images have real features. This can be really useful to evaluate. The closer the segmentation results on fake images match real ones, the better the virtual staining preserves true cellular morphology.</em></p>
+<p><strong>This is a research project still in progress. Any feedback provided by means of GitHub issues or comments will be positively considered for the final grade.</strong></p>
+<p><em>The repository is well organized and easy to install. Using Napari makes it easy to use the model. The idea of using pre-trained models for zero shot segmentation is really useful. Although this positive aspects, it would be a great improvement to have lots of different examples and comparison with real and fake images.</em></p>
+<h3 id="3d-versus-2d-analysis">3D versus 2D analysis</h3>
+<p><strong>What do you think are the benefits and drawbacks of each approach? Think about the size of the data and the parameters of the network, as well as the annotation and the computation of accuracy metrics. What about LPIPS in 3D?</strong></p>
+<p><em>Using low resolution images has the benefit of reducing data size and computational load, allowing for faster processing and lower memory usage. However, this cost the loss of details, which can lead to worse results because the network might not capture the differences between the nuclei and noise. Upscaled images, on the other hand, provide more details that allow to extract more discriminative features, but requires more computational power and memory and the network parameters may need to be adjusted to handle the increased data size effectively.</em>
+<em>This approach minimizes manual annotation effort but the accuracy heavily depends on where the prompts are placed. More prompts improve the segmentation until a convergence point. Standard accuracy metrics may not fully capture the perceptual quality of the segmentation, which is why Learned Perceptual Image Patch Similarity (LPIPS) can be interesting. This metric provides a measure of perceptual similarity that aligns well with human judgments, but extending it to 3D data introduces significant computational and network design complexity.</em></p>
+
+            
+            
+        </body>
+        </html>
