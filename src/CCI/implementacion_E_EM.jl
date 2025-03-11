@@ -9,6 +9,7 @@ struct SolucionProblemaEDOs{ftype,fltype}
     t::Vector{fltype}
     u::Vector{Vector{fltype}}
     prob::ProblemaEDOs{ftype,fltype}
+    nsteps::Int64
 end
 
 function Euler(problema::ProblemaEDOs{ftype,fltype}, n::Integer, m::Integer=1) where {ftype<:Function,fltype<:AbstractFloat}
@@ -33,22 +34,22 @@ function Euler(problema::ProblemaEDOs{ftype,fltype}, n::Integer, m::Integer=1) w
         push!(tt, tj)
         push!(uu, copy(uj))
     end
-    return SolucionProblemaEDOs(tt, uu, problema)
+    return SolucionProblemaEDOs(tt, uu, problema, n * m)
 end
 
 
 
-function EulerMejorado(problema::ProblemaEDOs{ftype,fltype}, n::Integer, m::Integer=1) where {ftype<:Function,fltype<:AbstractFloat}
+function EulerMejoradoOld(problema::ProblemaEDOs{ftype,fltype}, n::Integer, m::Integer=1) where {ftype<:Function,fltype<:AbstractFloat}
     # n: número de soluciones/vectores de estado a calcular
     # m: cada cuántos steps se guarda un vector de estado para el cálculo final
     # En funcion de n y m se calcula h -> 
     #      h: Intervalo de tiempo entre cada una de las soluciones guardadas (si m = 1).
     #         Si no, el intervalo de tiempo entre cada una de las soluciones es h * m
 
-    u0 = problema.u0    # Vector de la solución inicial
-    t0, T = problema.tspan # Intervalo de tiempo para calcular la solución aproximada
-    p = problema.p     # Vector de parámetros constantes
-    f! = problema.f     # Función de modelado del problema | Ecuación diferencial a resolver (en formato vectorial)
+    u0 = problema.u0        # Vector de la solución inicial
+    t0, T = problema.tspan  # Intervalo de tiempo para calcular la solución aproximada
+    p = problema.p          # Vector de parámetros constantes
+    f! = problema.f         # Función de modelado del problema | Ecuación diferencial a resolver (en formato vectorial)
 
     h = (T - t0) / (n * m) # Intervalo de tiempo entre cada una de las soluciones
     tt = [t0]        # Vector de tiempos
@@ -79,8 +80,80 @@ function EulerMejorado(problema::ProblemaEDOs{ftype,fltype}, n::Integer, m::Inte
         push!(uu, copy(uj))
     end
 
-    return SolucionProblemaEDOs(tt, uu, problema)
+    return SolucionProblemaEDOs(tt, uu, problema, n * m)
 end
+
+
+function  EulerMejorado( problema::ProblemaEDOs{ftype,fltype}; dt::fltype, save_everystep=true ) where {ftype<:Function,fltype<:AbstractFloat}
+    # dt es la longitud de paso h.
+    # Si se proporciona un intervalo nevativo, se integra hacia atrás
+    # Con save_everystep se guardan todos los pasos. Si no, se guardan solo el initial y el final.
+    #
+    u0   = problema.u0
+    t0,T = problema.tspan
+    p    = problema.p
+    f!   = problema.f
+      
+    # integración hacia adelante o hacia atrás 
+    if (T-t0)>0 
+        signdt=1
+    else
+        signdt=-1
+    end
+    
+    # Inicializaciones
+    h = dt 
+    tt = [ copy( t0 ) ]
+    uu = [ copy( u0 ) ]
+
+    tj   = copy( t0 )
+    uj   = copy( u0 )
+    duj  = similar( u0 ) 
+    duj_ = similar( u0 )
+    uj_  = similar( u0 )
+    
+    # Bucle principal
+    final = false
+    nsteps = 0
+    while !final
+        # longitud de paso para la iteración actual
+        sdt = signdt * h
+        
+        f!(duj, tj, uj, p)
+        @. uj_ = uj + sdt * duj
+        tj_ = tj + sdt
+        f!(duj_, tj_, uj_, p)
+        @. uj = uj + sdt/2 * (duj + duj_)
+        tj = tj_
+        
+        nsteps += 1
+        
+        # Save step?
+        if save_everystep
+            push!(tt,tj)
+            push!(uu,copy(uj))
+        end
+        
+        # Condicion de parada
+        if tj == T
+            final = true
+        else
+            # Mínimo entre dt y "lo que nos queda para llegar al final"
+            h = min(dt, abs( T-tj )) 
+        end
+    end
+
+
+    if !save_everystep
+      push!(tt,tj)
+      push!(uu,copy(uj))
+    end
+    
+    return SolucionProblemaEDOs(tt,uu,problema,nsteps)
+  end
+
+
+
 
 
 function RungeKuta4(problema::ProblemaEDOs{ftype,fltype}, n::Integer, m::Integer=1) where {ftype<:Function,fltype<:AbstractFloat}
@@ -130,5 +203,18 @@ function RungeKuta4(problema::ProblemaEDOs{ftype,fltype}, n::Integer, m::Integer
         push!(uu, copy(uj))
     end
 
-    return SolucionProblemaEDOs(tt, uu, problema)
+    return SolucionProblemaEDOs(tt, uu, problema, n * m)
 end
+
+
+# Longitud de paso adaptativa
+# Calcular una estimación del error local (parecido al error local real)
+# Partiendo de t_k y u_k calcular:
+# 1. t_k+1 como t_k+1 = t_k + h_k  
+# 2. Hacerlo en dos subpasos m=2 
+#
+# Error_Local_Estimado(t_k, u_k, h_k) = 1 / (2^r -1) * ( RK( t_k, u_k, h_k, 1 ) - RK( t_k, u_k, h_k, 2 ) )
+#   donde r es el orden del método numérico utilizado
+#
+# || Error_Local_Estimado(t_k, u_k, h_k) || aprox h_k * tolerancia
+#
