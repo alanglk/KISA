@@ -1,0 +1,16 @@
+KISA Computer Vision Week 2
+Group:
+- Sandra Burgos Artiguez
+- Arántzazu López-Larraínzar Salazar
+- Alan García Justel
+
+
+Assignment 5:
+https://colab.research.google.com/drive/1qRj8VpY3IadonVzMn-ljZclxRB7mvptT?usp=sharing
+
+Assignment 7:
+https://colab.research.google.com/drive/1r-H95bAyPzFb0-FHq29UPGR7HwQpyUgs?usp=sharing
+
+Assignment 8:
+https://colab.research.google.com/drive/1kdiDYEMRbpQYgnHeXmWshVog8cz7GusS?usp=sharing
+
